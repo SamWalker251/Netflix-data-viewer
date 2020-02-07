@@ -1,5 +1,5 @@
 import csv
-
+import math
 
 def timesWatched (theArray,search):
     timesFound = 0
@@ -31,11 +31,21 @@ with open('NetflixViewingHistory.csv') as csv_file:
 
 mostWatched = ""
 mostInDay = 0
+increment = 0.25
+checkpoint = math.floor(increment * len(arr))
+counter = 0
+print("|",end='')
 for searcher in arr:
     num = timesWatched(arr,searcher)
-    print(num)
-    if num > mostInDay : 
+    
+    if num >= mostInDay : 
         mostWatched = searcher
         mostInDay = num
-print(mostWatched , num)
-
+    
+    if counter == checkpoint:
+        print(".",end='')
+        checkpoint += math.floor(increment * len(arr))
+    
+    counter += 1
+print("|")
+print("On the date:",mostWatched,"\nYou watched:",mostInDay,"episodes")
